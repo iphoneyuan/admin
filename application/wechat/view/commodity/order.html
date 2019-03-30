@@ -1,0 +1,91 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+
+<div class="nowrap pull-right" style="margin-top:10px">
+    <button data-load="{:url('sync')}" class='layui-btn layui-btn-small'>同步粉丝</button>
+</div>
+
+<div class="nowrap pull-right" style="margin-top:10px;margin-right:10px">
+    <button data-update="" data-action="{:url('backadd')}" class='layui-btn layui-btn-small'>移入黑名单</button>
+</div>
+
+{/block}
+
+{block name="content"}
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class='list-table-check-td'>
+            <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+        </th>
+        <th class="text-center">编号</th>
+        <th class="text-center">商品名称</th>
+        <th class="text-center">价格</th>
+        <th class="text-center">发布者</th>
+        <th class="text-center">发布者确认</th>
+        <th class="text-center">发布者确认交易完成</th>
+        <th class="text-center">用户确认交易完成</th>
+
+        <th class="text-center" style="width:60px">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+{foreach $db as $v}
+<tr>
+    <td class="list-table-check-td">
+        <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+    </td>
+    <td class="text-center">
+        {$v.id}
+    </td>
+    <td class="text-center">
+        {$v.goodName}
+    </td>
+    <td class="text-center">
+        {$v.price}
+    </td>
+    <td class="text-center">
+        {$v.name}
+    </td>
+    <td class="text-center">
+        {if condition="$v.public_sure"}
+        <p style="color: green">已确认</p>
+        {else /}
+         <p style="color: red">未确认</p>
+        {/if}
+    </td>
+
+    <td class="text-center">
+        {if condition="$v.public_finish"}
+        <p style="color: green">已确认</p>
+        {else /}
+        <p style="color: red">未确认</p>
+        {/if}
+    </td>
+
+    <td class="text-center">
+        {if condition="$v.draw_finish"}
+        <p style="color: green">已确认</p>
+        {else /}
+        <p style="color: red">未确认</p>
+        {/if}
+    </td>
+
+    <td class="text-center">
+        <a  data-action="{:url('delorder')}"  href="javascript:void(0)" data-update="{$v['id']}">删除</a>
+    </td>
+</tr>
+{/foreach}
+    </tbody>
+</table>
+{if isset($page)}<p>{$page}</p>{/if}
+{/block}
+
+{block name="script"}
+{if auth("$classuri/tagset")}
+<script>
+
+</script>
+{/if}
+{/block}

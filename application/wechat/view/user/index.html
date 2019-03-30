@@ -1,0 +1,57 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+<div class="nowrap pull-right" style="margin-top:10px">
+    <button data-open="{:url('add')}" class='layui-btn layui-btn-small'>用户身份管理</button>
+    <!--<button data-update data-field='delete' data-action='{:url("$classuri/del")}'-->
+    <!--class='layui-btn layui-btn-small layui-btn-danger'>删除规则-->
+    <!--</button>-->
+</div>
+{/block}
+
+{block name='content'}
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class='list-table-check-td'>
+            <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+        </th>
+        <th class="text-center">编号</th>
+        <th class="text-center">openId</th>
+        <th class="text-center">姓名</th>
+        <th class="text-center">学号</th>
+        <th class="text-center">系别</th>
+        <th class="text-center">总积分</th>
+
+        <th class="text-center">头像</th>
+        <th class="text-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $db as $key=>$vo}
+    <tr>
+        <td class='list-table-sort-td'>
+            <input name="{$vo.userId}" type="checkbox" class="list-sort-input"/>
+        </td >
+        <td class="text-center">{$vo.userId}</td>
+        <td class="text-center">{$vo.openId}</td>
+        <td class="text-center">{$vo.name}</td>
+        <td class="text-center">{$vo.studentId}</td>
+        <td class="text-center">{$vo.department}</td>
+        <td class="text-center">{$vo.intergrationAll}</td>
+        <td class="text-center"><img src="{$vo.avatarUrl}" data-tips-image style="width: 70px;height: 50px" alt="头像"></td>
+        <td class="text-center" style="width: 60px">
+        <a  data-action="{:url('dels')}" href="javascript:void(0)" data-update="{$vo['userId']}">注销</a>
+        </td>
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{/block}
+
+{block name="script"}
+<script>
+
+</script>
+{/block}

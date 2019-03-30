@@ -1,0 +1,42 @@
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post" >
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input name="name" value='{$db.name}' required="required" pattern="^.{2,}$"
+                   title="姓名不少于两位" placeholder="请输入姓名信息" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">学号</label>
+        <div class="layui-input-block">
+            <input type="studentId" autofocus maxlength="10" name="studentId"  pattern="^[0-9]*$" title="学号必须为数字" placeholder="请输入学号信息" class="layui-input" value='{$db.studentId}' disabled>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">系别</label>
+        <div class="layui-input-block">
+            <input name="department" value='{$db.department}'  placeholder="请输入相应的系别" class="layui-input" >
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">mysise密码</label>
+        <div class="layui-input-block">
+            <input type="password" name="password" value='{$db.password}' title="请输入密码" placeholder="请输入联系邮箱" class="layui-input">
+        </div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+<script>
+
+</script>

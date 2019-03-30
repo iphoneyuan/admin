@@ -1,0 +1,56 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+
+
+{/block}
+
+{block name="content"}
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class="text-center">姓名</th>
+        <th class="text-center">学号</th>
+        <th class="text-center">系部</th>
+        <th class="text-center">职位</th>
+        <th class="text-center">所在组织</th>
+        <th class="text-center">状态</th>
+        <th class="text-center">审核</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {foreach $db as $key=>$vo}
+    <tr>
+        <td class="text-center">{$vo.realname}</td>
+        <td class="text-center">{$vo.number}</td>
+        <td class="text-center">{$vo.department}</td>
+        <td class="text-center">{$vo.job}</td>
+        <td class="text-center">{$vo.corporationName}</td>
+        <td class="text-center">
+            {switch  name=$vo.admin_sure}
+            {case value="0"}
+            <p style="color: red">未通过</p>
+            {/case}
+            {case value="1"}
+            <p style="color: green">已通过</p>
+            {/case}
+            {/switch}
+        </td>
+        <td class="text-center">
+            <a data-load="{:url('fangxing',['id'=>$vo['id']])}?a=1"  data-confirm="请确认审核信息无误？">通过</a>
+        </td>
+    </tr>
+    {/foreach}
+    </tbody>
+
+</table>
+{/block}
+
+{block name="script"}
+{if auth("$classuri/tagset")}
+<script>
+
+</script>
+{/if}
+{/block}

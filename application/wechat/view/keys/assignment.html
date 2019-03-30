@@ -1,0 +1,95 @@
+{extend name='extra@admin/content'}
+
+{block name="style"}
+<style>
+    .layui-box .control-label {margin:0;padding-left:0;padding-right:0;}
+    .layui-box textarea {width: 95%}
+    button{
+        display: inline-block;
+    }
+</style>
+{/block}
+
+{block name='content'}
+
+<form class="animated form-search" action="__SELF__" onsubmit="return false" method="get"  style="float: left" >
+
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <input type="text" name="word" id="word" placeholder="请输入相应的任务内容" class="input-sm form-control">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="form-group">
+                <input type="text" name="person" id="person" placeholder="发布人" class="input-sm form-control">
+            </div>
+        </div>
+        <div class="col-xs-1">
+            <div class="form-group">
+                <button type="submit" class="btn btn-sm btn-white ico-search"><i class="fa fa-search"></i> {:lang('搜索')}</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class='list-table-check-td'>
+            <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+        </th>
+        <th class="text-left">关键字</th>
+        <th class="text-center">任务内容</th>
+        <th class="text-center">任务时限(天)</th>
+        <th class="text-center">任务结束时间</th>
+        <th class="text-center">发布者</th>
+        <th class="text-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $key=>$vo}
+    <tr>
+        <td class='list-table-sort-td'>
+            <input name="{$vo.assignmentId}" type="checkbox" class="list-sort-input"/>
+        </td>
+        <td class='list-table-sort-td'>
+            {$vo.assignmentId}
+        </td>
+        <td class='text-center'>
+            {$vo.word}
+        </td>
+        <td class='text-center'>
+            {$vo.countdata}
+        </td>
+        <td class='text-center'>
+            {$vo.enddata}
+        </td>
+        <td class='text-center'>
+            {$vo.name}
+        </td>
+        <td class='text-center' style="width: 100px" >
+            <!--<input type="button" class=" layui-btn layui-btn-radius layui-btn-sm layui-btn-normal" value="放&nbsp&nbsp&nbsp行" >-->
+            <!--<a href="{:url('fangxing',['id'=>$vo['assignmentId']])}?a=1">ff</a><br>-->
+            <!--<button data-open="{:url('pauses',['id'=>$vo['assignmentId']])}?a=1" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">不通过</button>-->
+            <a data-action="{:url('delassignment')}"  href="javascript:void(0)"  data-update="{$vo['assignmentId']}">删除</a>
+        </td>
+
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+</form>
+{if isset($page)}<p>{$page}</p>{/if}
+
+{/block}
+
+{block name="script"}
+<script>
+
+    $(function () {
+
+    })
+</script>
+{/block}
+

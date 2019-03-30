@@ -1,0 +1,125 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+<div class="nowrap pull-right" style="margin-top:10px">
+    <button data-open="{:url('add')}" class='layui-btn layui-btn-small'>投诉详情</button>
+    <!--<button data-update data-field='delete' data-action='{:url("$classuri/del")}'-->
+            <!--class='layui-btn layui-btn-small layui-btn-danger'>删除规则-->
+    <!--</button>-->
+</div>
+{/block}
+
+{block name='content'}
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class='list-table-check-td'>
+                    <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+                </th>
+                <th class="text-left">领取编号</th>
+                <th class="text-center">任务内容</th>
+                <th class="text-center">任务地点</th>
+                <th class="text-center">所需积分</th>
+                <th class="text-center">任务时限(天)</th>
+                <th class="text-center">任务结束时间</th>
+                <th class="text-center">发布者是否授权</th>
+                <th class="text-center">用户确认完成</th>
+                <th class="text-center">发布者确认完成</th>
+                <th class="text-center">领取人</th>
+                <th class="text-center">投诉</th>
+                <th class="text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $list as $key=>$vo}
+            <tr>
+                <td class='list-table-sort-td'>
+                <input name="{$vo.assignmentId}" type="checkbox" class="list-sort-input"/>
+                </td>
+                <td class='list-table-sort-td'>
+                   {$vo.drawId}
+                </td>
+                <td class="text-center">
+                   {$vo.word}
+                </td>
+                <td class="text-center">
+                    {$vo.address}
+                </td>
+                <td class="text-center">
+                    {$vo.intergrationRequire}
+                </td>
+                <td class="text-center">
+                    {$vo.countdata}
+                </td>
+                <td class="text-center">
+                    {$vo.enddata}
+                </td>
+                <td class="text-center">
+                    {switch  name=$vo.publicsure}
+                    {case value="0"}
+                    <p style="color: deepskyblue">未处理</p>
+                    {/case}
+                    {case value=""}
+                    <p style="color: green">是</p>
+                    {/case}
+                    {case value="2"}
+                    <p style="color: green">是</p>
+                    {/case}
+                    {/switch}
+               </td>
+                <td class="text-center">
+                    {switch  name=$vo.publicfinish}
+                    {case value="0"}
+                    <p style="color: red">否</p>
+                    {/case}
+                    {case value="1"}
+                    <p style="color: green">是</p>
+                    {/case}
+                    {/switch}
+                </td>
+                <td class="text-center">
+                    {switch  name=$vo.drawfinish}
+                    {case value="0"}
+                    <p style="color: red">否</p>
+                    {/case}
+                    {case value="1"}
+                    <p style="color: green">是</p>
+                    {/case}
+                    {/switch}
+                </td>
+
+                <td class="text-center">
+                    {$vo.name}
+                </td>
+                <td class="text-center receive">
+                    {switch  name=$vo.isTop}
+                    {case value="0"}
+                    <p style="color: green">未投诉</p>
+                    {/case}
+                    {case value="1"}
+                    <p style="color: red">被投诉</p>
+                    {/case}
+                    {/switch}
+                </td>
+                <td class='text-center' style="width: 100px" >
+                    <!--<input type="button" class=" layui-btn layui-btn-radius layui-btn-sm layui-btn-normal" value="放&nbsp&nbsp&nbsp行" >-->
+                    <!--<a href="{:url('fangxing',['id'=>$vo['assignmentId']])}?a=1">ff</a><br>-->
+                    <!--<button data-open="{:url('pauses',['id'=>$vo['assignmentId']])}?a=1" class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">不通过</button>-->
+                    <a data-action="{:url('delDrawAssignment')}"  href="javascript:void(0)" data-update="{$vo['drawId']}">删除</a>
+                </td>
+
+            </tr>
+            {/foreach}
+        </tbody>
+    </table>
+
+</form>
+{if isset($page)}<p>{$page}</p>{/if}
+{/block}
+
+{block name="script"}
+<script>
+
+</script>
+{/block}

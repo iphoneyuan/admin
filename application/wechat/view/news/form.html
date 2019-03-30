@@ -1,0 +1,149 @@
+{extend name='extra@admin/content'}
+
+{block name='content'}
+
+<!--左侧图文列表 开始-->
+
+<!--左侧图文列表 结束-->
+
+<!--右侧编辑区 开始-->
+<div class="panel panel-default" style="overflow:hidden;float: left;margin-left: 0px">
+    <div class="panel-heading">请认真填写</div>
+    <div class="panel-body">
+        <!--<form class="form-horizontal" role="form" name="news" onsubmit="return false;">-->
+        <form class="form-horizontal" action="__SELF__" data-auto="true" method="post">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">姓名</span>
+                        <input maxlength="64" required="required" title="姓名不能为空哦" placeholder="请在这里输入姓名" name='name'class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">学号</span>
+                        <input maxlength="10"  pattern="^[0-9]*$" title="学号必须为数字" placeholder="请在这里输入学号" name='studentId' class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">所在系别</span>
+                        <input maxlength="20" type="text" required="required" title="系别不能为空哦" placeholder="请输入相应的系别" name='department' class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">mysise密码</span>
+                        <input type="password"  title="mysise密码不能为空哦" placeholder="请输入相应的密码" name='password' class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-9">
+                        <button type="submit" type="button" class="layui-btn">保存学生信息</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--右侧编辑区 结束-->
+
+{/block}
+
+
+{block name='script'}
+<script>
+    $(function () {
+
+		var $form = $('form[name="news"]'), $body = $('body');
+        //
+		$form.validate();
+
+		/*! 数据提交 */
+		$form.find('button[data-submit]').on('click', function () {
+            var name = $("#name").val();
+            var studentId=$("#studentId").val();
+            var department=$("#department").val();
+            var password=$("#password").val();
+
+			$.form.load('__SELF__', {'name': name,'studentId':studentId,'department':department,'password':password}, "post");
+            // console.log(data);
+		});
+
+
+		/*! 显示编辑器 */
+		function showEditor() {
+			// 读取对象数据
+			$item = $('.news-item.active');
+			this.get = function () {
+				var data = $item.data('item') || {};
+				data.id = data.id || 0;
+				data.title = data.title || '';
+				data.local_url = data.local_url || '__STATIC__/plugs/uploader/theme/image.png';
+				data.content = data.content || '';
+				data.author = data.author || '';
+				data.digest = data.digest || '';
+				data.content_source_url = data.content_source_url||'';
+				data.show_cover_pic = data.show_cover_pic || 0;
+				return data;
+			};
+			// 重置表单
+			$form.get(0).reset();
+			// 获取当前数据
+			var data = this.get();
+			for (var i in data) {
+				if (i !== 'content' && i !== 'show_cover_pic') {
+					$form.find('[name="' + i + '"]').val(data[i]).trigger('change');
+				}
+			}
+			if (parseInt(data.show_cover_pic) === 1) {
+				$form.find('[name="show_cover_pic"]').get(0).checked = true;
+			}
+			editor.setData(data.content);
+		}
+
+		/*! 添加新图文 */
+		$body.off('click', '.news-box .article-add').on('click', '.news-box .article-add', function () {
+			var $html = $('<div class="news-item transition" style="background-image:url(__STATIC__/plugs/uploader/theme/image.png)"><a class="upload-multiple-close fa fa-close hide"></a><span class="news-title"></span></div><hr />');
+			$html.insertBefore(this).trigger('click');
+			$('.news-item').size() >= 7 && $(this).hide();
+		});
+
+
+   
+    });
+</script>
+{/block}
+
+{block name="style"}
+<style>
+    .panel{border-radius:0}
+    .news-left {left:20px;width:300px;position:absolute;}
+    .news-right {position:absolute;left:330px;right:20px;}
+    .news-left .news-item {position:relative;width:280px;height:150px;max-width:270px;overflow:hidden;border:1px solid #ccc;background-size:cover;background-position:center center;}
+    .news-left .news-item.active {border:1px solid #44b549 !important;}
+    .news-left .article-add {font-size:22px;text-align:center;display:block;color:#999;}
+    .news-left .article-add:hover{color:#666;}
+    .news-left .news-title{bottom:0;width:272px;color:#fff;display:block;padding:0 5px;overflow:hidden;position:absolute;margin-left:-1px;text-overflow:ellipsis;max-height:6em;background:rgba(0,0,0,0.7);}
+    .news-right .layui-input{border-radius:0;border:1px solid #e5e6e7;}
+    .news-right .layui-input:hover, .news-right .layui-input:focus{border-color:#e5e6e7!important;}
+    .news-right .input-group-addon{background:#fff;border-radius:0;border-color:#e5e6e7;}
+    .news-right .upload-image-box{width:130px;height:90px;background-size:cover;background-position:center center;border:1px solid rgba(125,125,125,0.1);margin:5px}
+    .news-item .upload-multiple-close{width:30px;height:30px;line-height:30px;text-align:center;background-color:rgba(0,0,0,.5);color:#fff;float:right;margin-right:-1px;margin-top:-1px}
+    .news-item .upload-multiple-close:hover{text-decoration:none}
+</style>
+{/block}

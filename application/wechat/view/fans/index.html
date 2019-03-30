@@ -1,0 +1,69 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+
+<div class="nowrap pull-right" style="margin-top:10px">
+    <button data-load="{:url('sync')}" class='layui-btn layui-btn-small'>同步粉丝</button>
+</div>
+
+<div class="nowrap pull-right" style="margin-top:10px;margin-right:10px">
+    <button data-update="" data-action="{:url('backadd')}" class='layui-btn layui-btn-small'>移入黑名单</button>
+</div>
+
+{/block}
+
+{block name="content"}
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class='list-table-check-td'>
+            <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+        </th>
+        <th class="text-center">编号</th>
+        <th class="text-center">标题</th>
+        <th class="text-center">内容</th>
+        <th class="text-center">积分</th>
+        <th class="text-center">开始时间</th>
+        <th class="text-center">结束时间</th>
+        <th class="text-center">发布者</th>
+        <th class="text-center">图片缩略图</th>
+        <th class="text-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $list as $key=>$vo}
+    <tr>
+        <td class='list-table-sort-td'>
+            <input name="{$vo.corporationId}" type="checkbox" class="list-sort-input"/>
+        </td >
+        <td class="text-center">{$vo.corporationId}</td>
+        <td class="text-center">{$vo.title}</td>
+        <td class="text-center"> <input type="text" maxlength="50" style="width:206px;border: 0px;overflow: hidden;text-overflow: ellipsis" value="{$vo.word}"/></td></td>
+        <td class="text-center">{$vo.intergrationRequire}</td>
+        <td class="text-center">{$vo.begintime}</td>
+        <td class="text-center">{$vo.endtime}</td>
+        <td class="text-center">{$vo.realname}</td>
+        <td class="text-center">
+            {empty name="$vo.imageUrls"}
+            <img src="__STATIC__/image/none.png" data-tips-image alt="" style="width: 70px;height: 50px"/>
+            {else /}
+            <img  data-tips-image style="width: 70px;height: 50px" src="__STATIC__/{$vo.imageUrls}" alt="社团图片">
+            {/empty}
+        </td>
+        <td class="text-center" style="width: 120px">
+            <a  data-modal="{:url('edit',['id'=>$vo['corporationId']])}">详情</a>
+            <span class="text-explode">|</span>
+            <a  data-action="{:url('del')}"  data-update="{$vo['corporationId']}">删除</a>
+        </td>
+    </tr>
+    {/foreach}
+</table>
+{/block}
+
+{block name="script"}
+{if auth("$classuri/tagset")}
+<script>
+
+</script>
+{/if}
+{/block}

@@ -1,0 +1,109 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+<div class="nowrap pull-right" style="margin-top:10px">
+</div>
+{/block}
+
+{block name='content'}
+<form class="layui-form layui-box" style='padding:25px 30px 20px 0' action="{:url('wechat/Menu/create')}"  method="post" enctype="multipart/form-data" >
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">主题标题</label>
+        <div class="layui-input-block">
+            <input name="title"  required="required" pattern="^.{2,}$"
+                   title="姓名不少于两位" placeholder="请输入标题信息" class="input-sm form-control" style="width: 400px;">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">地点</label>
+        <div class="layui-input-block">
+            <input type="text" maxlength="10" name="address"  required="required" placeholder="请输入地点信息" class="input-sm form-control" style="width: 400px;">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">开始时间</label>
+        <div class="layui-input-block">
+            <input type="text" name="begintime" id="begintime" placeholder="请输入开始时间" class="input-sm form-control" required="required" readonly="readonly" style="width: 400px;" >
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">结束时间</label>
+        <div class="layui-input-block">
+            <input type="text" name="endtime" id="endtime"  title="请输入密码" placeholder="请输入结束时间" class="input-sm form-control" required="required" readonly="readonly" style="width: 400px;">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">图片上传</label>
+        <div class="layui-input-block" >
+            <label>
+                <input type="button" id="btn" value="点我上传">
+                <input type="file"  name="image" class="img"/>
+            </label>
+            <img src="" class="showimg">
+        </div>
+
+    </div>
+
+
+    <div class="hr-line-dashed"></div>
+
+    <div class="layui-form-item" style="margin-left: 100px">
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
+{/block}
+
+{block name="script"}
+<script>
+    $(".img").change(function(){
+        $(".showimg").attr("src",URL.createObjectURL($(this)[0].files[0]));
+    });
+    laydate.render({
+        elem: '#begintime'
+        ,value: '2019-01-10'
+        ,isInitValue: false //是否允许填充初始值，默认为 true
+    });
+
+    laydate.render({
+        elem: '#endtime'
+        ,value: '2019-01-10'
+        ,isInitValue: false //是否允许填充初始值，默认为 true
+    });
+</script>
+<style>
+    .showimg{
+        width: 70px;
+        height: 50px;
+        margin-left: 15px;
+    }
+    label{
+        position: relative;
+    }
+
+    .img{
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    #btn{
+        padding: 5px 10px;
+        background: #00b0f0;
+        color: #FFF;
+        border: none;
+        border-radius: 5px;
+    }
+
+    img[src='']{
+        visibility: hidden;
+    }
+</style>
+{/block}

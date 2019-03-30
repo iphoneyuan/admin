@@ -1,0 +1,42 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+<div class="nowrap pull-right" style="margin-top:10px">
+    <button data-open="{:url('add')}" class='layui-btn layui-btn-small'>投诉详情</button>
+    <!--<button data-update data-field='delete' data-action='{:url("$classuri/del")}'-->
+    <!--class='layui-btn layui-btn-small layui-btn-danger'>删除规则-->
+    <!--</button>-->
+</div>
+{/block}
+
+{block name='content'}
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class="text-center">编号</th>
+        <th class="text-center">滚动新闻</th>
+        <th class="text-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $db as $key=>$vo}
+    <tr>
+        <td class="text-center">{$vo.newId}</td>
+        <td class="text-center">{$vo.word}</td>
+        <td class="text-center" style="width: 120px" nowrap>
+            <a  data-modal="{:url('edit',['id'=>$vo['newId']])}" href="javascript:void(0)" >修改</a>
+        </td>
+
+    </tr>
+    {/foreach}
+    </tbody>
+</table>
+{if isset($page)}<p>{$page}</p>{/if}
+{/block}
+
+{block name="script"}
+<script>
+
+</script>
+{/block}

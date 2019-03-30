@@ -1,0 +1,57 @@
+{extend name='extra@admin/content'}
+
+{block name="button"}
+<div class="nowrap pull-right" style="margin-top:10px">
+    <button data-open="{:url('add')}" class='layui-btn layui-btn-small'>投诉详情</button>
+    <!--<button data-update data-field='delete' data-action='{:url("$classuri/del")}'-->
+    <!--class='layui-btn layui-btn-small layui-btn-danger'>删除规则-->
+    <!--</button>-->
+</div>
+{/block}
+
+{block name='content'}
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th class='list-table-check-td'>
+            <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+        </th>
+        <th class="text-center">编号</th>
+        <th class="text-center">问题</th>
+        <th class="text-center">回复详情</th>
+        <th class="text-center">评论人</th>
+        <th class="text-center" style="width: 50px">操作</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {foreach $reply as $v}
+    <tr>
+    <td  class='list-table-sort-td'>
+        <input data-none-auto="" data-check-target='.list-check-box' type='checkbox'/>
+    </td>
+        <td class="text-center">{$v.replyQusetionId}
+        </td>
+        <td class="text-center">{$v.question}
+        </td>
+        <td class="text-center">{$v.word}
+        </td>
+        <td class="text-center">{$v.name}
+        </td>
+        <td class="text-center">
+            <a href="javascript:void(0)" data-action="{:url('delrevice')}"  href="javascript:void(0)"  data-update="{$v['replyQusetionId']}">删除</a>
+        </td>
+    </tr>
+
+    {/foreach}
+    </tbody>
+</table>
+{if isset($page)}<p>{$page}</p>{/if}
+{/block}
+
+{block name="script"}
+<script>
+
+</script>
+{/block}
