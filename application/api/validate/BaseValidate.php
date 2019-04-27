@@ -15,16 +15,12 @@ class BaseValidate extends Validate {
 		$params = $request->param (); // 调用param方法，获取参数
 		$result = $this->check ( $params ); // 因为是在Validate类的内部，所以就不用new一个validata方法
 		if (! $result) {
-			$e = new ParameterException ( [  // 编写构造函数
+			$e = new ParameterException ([  // 编写构造函数
 					'msg' => $this->error
-			]
-			// 'code'=>400,
-			// 'errorCode'=>10002
-			 );
-			// $e->msg=$this->error;
+			]);
+
 			throw $e;
-//			 $error=$this->error; //拿到错误信息
-//			 throw new Exception($error); //中断整个请求，所以要抛出一个异常 简单的抛出一个校验层
+
 		} else {
 			return true;
 		}
@@ -38,10 +34,10 @@ class BaseValidate extends Validate {
 
 }
 
-protected function isNotEmpty($value, $rule = '', $data = '', $field = '')
+protected function isNotEmpty($value, $rule = '', $data = '', $field = '',$msg='')
 {
     if (empty($value)) {
-       return $field.'不能为空';
+       return $msg.'不能为空';
     } else {
         return true;
     }

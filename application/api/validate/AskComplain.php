@@ -15,5 +15,8 @@ class AskComplain extends BaseValidate
         'complainWord'=>'require|isNotEmpty',
         'assignment_assignmentId'=>'require|isNotEmpty'
     ];
-
+//    protected   $field = [
+//        'complainWord'  => '投诉信息',
+//        'assignment_assignmentId'   => '任务编号',
+//    ];
 }

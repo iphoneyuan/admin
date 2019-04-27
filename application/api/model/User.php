@@ -115,6 +115,18 @@ class User extends Model
             return json_encode($data);
         }
     }
+
+    public function UpQuestionComplain($upcomplain){
+        $result=Db::table('question_complain')->insert($upcomplain);
+        if($result){
+            $data=array('error_code' => 1, 'msg'=>'投诉成功');
+            return json_encode($data);
+        }else{
+            $data=array('error_code' => 0, 'msg'=>'投诉失败');
+            return json_encode($data);
+        }
+    }
+
     //获取一个用户所有领取的任务信息
     public function  getUserDrawAssignment($uid){
      $result=Db::table("Draw_Assignment")->alias('a')
@@ -175,6 +187,8 @@ class User extends Model
             return json_encode($data);
         }
     }
+
+
 
     //添加商品信息
     public function UpShopping($all){
@@ -379,6 +393,17 @@ class User extends Model
             return json_encode($data);
         }
     }
+
+
+//获取个人社团任务信息
+   public function getUserTeamWork($uid){
+    $result=Db::table('draw_corporation')->alias('a')
+            ->join('corporation b','b.corporationId=a.corporation_id')
+            ->where('a.user_userId',$uid)
+            ->select();
+
+    return json_encode($result);
+   }
 
 
 }

@@ -40,6 +40,12 @@ class Commodity extends Controller
         $commodityById=model('commodity')->getCommodityById();
         return $commodityById;
      }
+     //获取分类商品信息
+    public function getCommodityByOrder($id){
+        $commodityByOrder=model('commodity')->getCommodityByOrder($id);
+        return $commodityByOrder;
+    }
+
    //获取一个商品的详情信息
     public function getCommodityDetail($id){
          $commodityDetail=model('commodity')->getCommodityDetail($id);
@@ -70,4 +76,5 @@ class Commodity extends Controller
         $result=Db::table('draw_commodity')->where('commodity_commodityId',$id)->where('user_userId',$uid)->find();
         return json_encode($result);
     }
+
 }

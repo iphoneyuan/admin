@@ -19,4 +19,5 @@ class CheckCommodityTask extends BaseValidate
         'corporationName'=>'require|isNotEmpty'
     ];
 
+
 }

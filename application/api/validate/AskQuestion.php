@@ -16,5 +16,8 @@ class AskQuestion extends BaseValidate
         'prizegiving_prizegivingId'=>'require|isNotEmpty'
 
     ];
-
+//    protected   $field = [
+//        'complainWord'  => '问题信息',
+//        'assignment_assignmentId'   => '任务编号',
+//    ];
 }

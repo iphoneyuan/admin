@@ -34,6 +34,13 @@ class Token
         $result=$ut->CheckLogin();
         return json_encode($result);
     }
+
+    public function CheckCorporationLogin(){
+        $ut=new Identity();
+        $result=$ut->CheckCorporationLogin();
+        return json_encode($result);
+    }
+
     //È·ÈÏµÇÂ¼°´Å¥
     public function CheckLoginButton(){
         $ut=new Identity();

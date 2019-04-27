@@ -40,7 +40,8 @@ class Banner extends BasicAdmin
     public function addg(){
         $result=$this->request->post();
         $file = request()->file('image');
-        if(empty($file)=='1'){
+
+        if(empty($file)==1){
             $end=Db::table('banner_item')->update($result);
             if($end){
                 $this->success("信息修改成功");
@@ -54,6 +55,7 @@ class Banner extends BasicAdmin
             $imgp= str_replace("\\","/",$a);
             $imgpath='/image/banner/'.$imgp;
             $result['img_url']= $imgpath;
+            unset($result['name']);
             $end=Db::table('banner_item')->update($result);
             if($end){
                 $this->success("信息修改成功");

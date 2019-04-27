@@ -9,6 +9,7 @@
 namespace app\api\service;
 use app\api\model\Student;
 use app\lib\exception\AbleLoginException;
+use app\lib\exception\CorporationException;
 use app\lib\exception\LoginException;
 use app\lib\exception\NotEmptyException;
 use app\api\model\UserAddress;
@@ -57,6 +58,21 @@ class Identity
         }else{
             throw new TokenException();
         }
+    }
+
+    public function CheckCorporationLogin(){
+        $uid=TokenServer::getCurrentUid();
+        $useraddress=Db::table('user_address')->where('user_userId',$uid)->find();
+        $corporation=Db::table('leading')->where('user_userId',$uid)->find();
+        if(!$corporation){
+           throw new CorporationException();
+        }elseif(!$uid&&!$useraddress){
+            throw new TokenException();
+        }else{
+            return ['errorCode'=>'1','msg'=>'已登录'];
+        }
+
+
     }
 
  //确认登录按钮

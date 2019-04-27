@@ -188,6 +188,25 @@ function curl_get($url,&$httpCode=0){
     curl_close($ch);
     return $file_contents;
 }
+
+//HTTP请求（支持HTTP/HTTPS，支持GET/POST）
+function http_request_url($url, $data = null)
+{
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+
+    if (!empty($data)) {
+        curl_setopt($curl, CURLOPT_POST, TRUE);
+        curl_setopt($curl, CURLOPT_POSTFIELDS,$data);
+    }
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+    $output = curl_exec($curl);
+    curl_close($curl);
+    return $output;
+}
+
+
+
 function getRandChar($length){
     $str=null;
     $strPol="ABDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghiklmnopqrstuvwxyz";

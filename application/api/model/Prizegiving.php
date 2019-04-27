@@ -21,7 +21,7 @@ class Prizegiving extends Model
     public function prizegivingAll(){
         $timebegin=time()-1209600;
         $timeend=time();
-        $prizegivingAll=self::with(['user','user.UserAddress'])->order('createtime','desc')->where('createtime','between',[$timebegin,$timeend])->select();
+        $prizegivingAll=self::with(['user','user.UserAddress'])->order('createtime','desc')->where('createtime','between',[$timebegin,$timeend])->where('delete',0)->select();
         foreach ( $prizegivingAll as $value){
             $value['createtime']=date("Y-m-d H:i:s",$value['createtime']);
         }

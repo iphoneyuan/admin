@@ -14,9 +14,9 @@ class BannerCheck extends BaseValidate
     protected $rule=[
         'id'=>'require|isPositiveInteger'
     ];
-    protected $message=[
-        'msg'=>'缺少相应的BannerID'
-    ];
+//    protected $message=[
+//        'msg'=>'缺少相应的BannerID'
+//    ];
 
 
 }

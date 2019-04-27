@@ -135,8 +135,14 @@ class Menu extends BasicAdmin
 //主题表单修改
     public function addg(){
         $result=$this->request->post();
+        if($result['begintime']!=''||$result['endtime']!=''){
+            $result['begintime']=strtotime($result['begintime']);
+            $result['endtime']=strtotime($result['endtime']);
+        }else{
+            unset($result['begintime'],$result['endtime']);
+        }
         $file = request()->file('image');
-        if(empty($file)=='1'){
+        if(empty($file)){
             $end=Db::table('theme')->update($result);
             if($end){
                 $this->success("信息修改成功");
@@ -198,6 +204,8 @@ class Menu extends BasicAdmin
 public function themefileadd(){
    $themefileadd=$this->request->post();
    $themefile=preg_replace('|[0-9a-zA-Z&;:/=-]|','',$themefileadd['themedetailWord']);
+//    $themefile=$themefileadd['themedetailWord'];
+//    halt($themefile);
    $all=['themedetailTitle'=>$themefileadd['themedetailTitle'],'theme_themeId'=>$themefileadd['theme_themeId'],'themedetailWord'=>$themefile];
    $result=Db::table('themedetail')
        ->insert($all);

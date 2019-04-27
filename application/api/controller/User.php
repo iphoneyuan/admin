@@ -35,8 +35,7 @@ class User extends Controller
 
     //定义前置方法
     protected $beforeActionList=[
-
-      'checkPrimaryScope'=>['only'=>'UpAssignment,UpPrizegivingById,UpReplyQuestionById,getUserDrawAssignment,getUserDrawAssignmentDetail,UpCommodityTask,UpShopping']
+      'checkPrimaryScope'=>['only'=>'UpAssignment,getUserTeamWork,UpPrizegivingById,UpReplyQuestionById,getUserDrawAssignment,getUserDrawAssignmentDetail,UpCommodityTask,UpShopping']
     ];
     protected function checkPrimaryScope(){
         $scope=TokenService::getCurrentTokenVar('scope');
@@ -78,6 +77,17 @@ class User extends Controller
         $result=model('User')->getUserDrawAssignmentDetail($id);
         return $result;
     }
+    //获取一个用户领取的社团信息
+    public function getUserTeamWork(){
+        $uid=TokenService::getCurrentUid();
+        $user=UserModel::getUser($uid);
+        if(!$user){
+            throw new UserException();
+        }
+        $getuserteamwork=model('User')->getUserTeamWork($uid);
+        return $getuserteamwork;
+    }
+
 
     //上传任务详细信息
     public function UpAssignment(){
@@ -120,6 +130,7 @@ class User extends Controller
         if(!$user){
             throw new UserException();
         }
+
         $question=input('question');
         $intergrationRequire=input('intergrationRequire');
         $all=['question'=>$question,'intergrationRequire'=>$intergrationRequire,'user_userId'=>$uid,'createtime'=>time()];
@@ -164,6 +175,18 @@ class User extends Controller
         $dataArray=$validate->getDataByRule(input('post.'));
         $dataArray['user_userId']=$uid;
         $upComplain=model('User')->UpComplain($dataArray);
+        return $upComplain;
+    }
+    //提交用户回答的问题信息
+    public function UpQuestionComplain(){
+        $uid=TokenService::getCurrentUid();
+        $user=UserModel::getUser($uid);
+        if(!$user){
+            throw new UserException();
+        }
+        $dataArray=input('post.');
+        $dataArray['user_userId']=$uid;
+        $upComplain=model('User')->UpQuestionComplain($dataArray);
         return $upComplain;
     }
 
@@ -405,5 +428,7 @@ class User extends Controller
         $result=model('User')->surefinishCommodity($all);
         return $result;
     }
+
+
 
 }

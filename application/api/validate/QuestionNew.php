@@ -15,5 +15,8 @@ class QuestionNew extends BaseValidate
         'intergrationRequire'=>'require|isNotEmpty|number',
         'question'=>'require|isNotEmpty'
     ];
-
+//    public $field = [
+//        'intergrationRequire'  => '积分',
+//        'question'   => '问题'
+//];
 }

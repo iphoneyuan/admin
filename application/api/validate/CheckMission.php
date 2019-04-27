@@ -17,7 +17,13 @@ class CheckMission extends BaseValidate
         'begintime'=>'require|isNotEmpty',
         'endtime'=>'require|isNotEmpty',
         'intergrationRequire'=>'require|isNotEmpty|number'
-
     ];
 
+//    protected   $field = [
+//        'title'  => '标题',
+//        'word'   => '内容',
+//        'begintime'   => '开始时间',
+//        'endtime'=>'结束时间',
+//        'intergrationRequire'=>'积分',
+//    ];
 }

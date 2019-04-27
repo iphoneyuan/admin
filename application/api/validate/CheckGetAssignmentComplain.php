@@ -14,5 +14,8 @@ class CheckGetAssignmentComplain extends BaseValidate
     protected $rule=[
         'word'=>'require|isNotEmpty'
     ];
+//    protected $message=[
+//        'word'=>'Õ∂Àﬂ–≈œ¢'
+//    ];
 
 }

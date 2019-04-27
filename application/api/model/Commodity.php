@@ -30,6 +30,11 @@ class Commodity extends Model
         $commoditydetail=self::with(['Useritem','Useritem.UserAddress'])->find($id);
         return json_encode($commoditydetail);
     }
+    //获取某类的商品信息
+    public function  getCommodityByOrder($type_id){
+        $commodityById=self::with(['Useritem','Useritem.UserAddress'])->where('type',$type_id)->where('comm_finish',0)->where('delete',0)->where('comm_sure',0)->select();
+        return json_encode($commodityById);
+    }
 
     //点赞功能
     public function thumb($id){
@@ -49,4 +54,5 @@ class Commodity extends Model
             return json_encode($data);
         }
     }
+
 }
